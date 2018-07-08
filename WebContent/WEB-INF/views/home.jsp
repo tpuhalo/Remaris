@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Adresar</title>
+<title>Contact formular</title>
 <style>
 table {
 	border-collapse: collapse;
@@ -27,42 +27,39 @@ cb {
 </style>
 </head>
 <body>
-	<h2 align="center" style="color: #DF01010">Adresar</h2>
+	<h2 align="center" style="color: #DF01010">Please enter your
+		contact</h2>
 	<hr />
+
+	<h3>
+		<span>${error}</span>
+	</h3>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 	<div align="center">
-		<form:form action="saveEditAddress" modelAttribute="editAddress"
+		<form:form action="saveForm" modelAttribute="formSubmitted"
 			method="POST">
 			<table>
 				<tr>
-					<td>Street:</td>
-					<td><form:input path="street" placeholder="Enter street name"
-							cssClass="ciput"></form:input> <form:errors path="street"
-							cssClass="cb"></form:errors></td>
+					<td>Name:</td>
+					<td><form:input path="name" placeholder="Enter name"></form:input>
+						<form:errors path="name"></form:errors></td>
+				</tr>
+				<tr>
+					<td>Surname:</td>
+					<td><form:input path="surname" placeholder="Enter surname"></form:input>
+						<form:errors path="surname"></form:errors></td>
 				</tr>
 				<tr>
 					<td>Street number:</td>
-					<td><form:input path="streetNumber"
-							placeholder="Enter street number" cssClass="ciput"></form:input>
-						<form:errors path="streetNumber" cssClass="cb"></form:errors></td>
-				</tr>
-				<tr>
-					<td>City:</td>
-					<td><select name="cities">
-							<c:forEach items="${cities}" var="city">
-								<option value="${city.id}">${city.name} ${city.zipCode},
-									${city.country.name}</option>
-							</c:forEach>
-					</select></td>
+					<td><form:input path="email" placeholder="Enter email"></form:input>
+						<form:errors path="email"></form:errors></td>
 				</tr>
 				<tr>
 					<td align="center"><input type="submit" value="Submit"></td>
 				</tr>
 			</table>
 		</form:form>
-
-
 	</div>
 	<hr>
 	<div align="right">

@@ -1,20 +1,19 @@
-package com.zadatak.config;
+package com.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-
 public class WebMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-	
+
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		return new Class[] { WebMvcInitializer.class };
 	}
- 
+
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class[] {WebMvcConfig.class};
+		return new Class[] { WebMvcConfig.class };
 	}
- 
+
 	@Override
 	protected String[] getServletMappings() {
 		return new String[] { "/" };

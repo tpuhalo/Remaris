@@ -1,4 +1,4 @@
-package com.zadatak.daoimpl;
+package com.daoimpl;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
-import com.zadatak.dao.DaoBase;
+import com.dao.DaoBase;
 
 public abstract class DaoClass<PK extends Serializable, T> implements DaoBase<PK, T> {
 

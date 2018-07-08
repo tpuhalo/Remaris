@@ -1,4 +1,4 @@
-package com.zadatak.config;
+package com.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -35,13 +35,5 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	public void configurePathMatch(PathMatchConfigurer matcher) {
 		matcher.setUseRegisteredSuffixPatternMatch(true);
 	}
-
-	// /**
-	// * Configure ResourceHandlers to serve static resources like CSS
-	// */
-	// @Override
-	// public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	// registry.addResourceHandler("").addResourceLocations("");
-	// }
 
 }
