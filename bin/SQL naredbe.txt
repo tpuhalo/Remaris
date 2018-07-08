@@ -1,0 +1,143 @@
+CREATE SCHEMA IF NOT EXISTS `adresar`;
+
+CREATE TABLE `adresar`.`contact` (
+
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+  
+	`FIRST_NAME` VARCHAR(20) NOT NULL,
+  
+	`LAST_NAME` VARCHAR(50) NOT NULL,
+  
+	`PHONE` VARCHAR(13) NULL,
+  
+	`EMAIL` VARCHAR(50) NOT NULL,
+  
+	`SEX_ID` BIGINT NULL,
+  
+	`ADDRESS_ID` BIGINT NULL,
+  
+	PRIMARY KEY (`ID`));
+
+CREATE TABLE IF NOT EXISTS `Adresar`.`country` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+ 	`NAME` VARCHAR(50) NOT NULL,
+	`ALPHA_2` VARCHAR(2) NULL,
+	`ALPHA_3` VARCHAR(3) NULL,
+	PRIMARY KEY (`ID`),
+	UNIQUE INDEX `NAME_UNIQUE` (`NAME` ASC),
+	UNIQUE INDEX `ALPHA_2_UNIQUE` (`ALPHA_2` ASC),
+	UNIQUE INDEX `ALPHA_3_UNIQUE` (`ALPHA_3` ASC));
+
+CREATE TABLE IF NOT EXISTS `Adresar`.`city` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`NAME` VARCHAR(50) NOT NULL,
+	`ZIP_CODE` VARCHAR(10) NULL,
+	`COUNTRY_ID` BIGINT NULL,
+	PRIMARY KEY (`ID`),
+	UNIQUE INDEX `NAME_UNIQUE` (`NAME` ASC));
+
+CREATE TABLE IF NOT EXISTS `Adresar`.`address` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`STREET` VARCHAR(50) NOT NULL,
+	`STREET_NO` VARCHAR(5) NOT NULL,
+	`CITY_ID` BIGINT NULL,
+	PRIMARY KEY (`ID`));
+
+CREATE TABLE `adresar`.`sex` (
+	`ID` BIGINT NOT NULL AUTO_INCREMENT,
+	`NAME` VARCHAR(7) NOT NULL,
+	PRIMARY KEY (`ID`),
+	UNIQUE INDEX `NAME_UNIQUE` (`NAME` ASC));
+
+
+ALTER TABLE `adresar`.`contact` 
+
+	ADD CONSTRAINT `SEX_ID`
+  FOREIGN KEY (`SEX_ID`)
+  
+		REFERENCES `adresar`.`sex` (`ID`)
+  
+		ON DELETE SET NULL
+  
+		ON UPDATE CASCADE,
+	
+ADD CONSTRAINT `ADDRESS_ID`
+  FOREIGN KEY (`ADDRESS_ID`)
+  
+		REFERENCES `adresar`.`address` (`ID`)
+  
+		ON DELETE SET NULL
+  
+		ON UPDATE CASCADE;
+
+ALTER TABLE `adresar`.`address` 
+	
+ADD CONSTRAINT `CITY_ID`
+  FOREIGN KEY (`CITY_ID`)
+  
+		REFERENCES `adresar`.`city` (`ID`)
+  
+		ON DELETE SET NULL
+  
+		ON UPDATE CASCADE;
+
+
+ALTER TABLE `adresar`.`city` 
+	
+ADD CONSTRAINT `COUNTRY_ID`
+  FOREIGN KEY (`COUNTRY_ID`)
+  
+	REFERENCES `adresar`.`country` (`ID`)
+  
+		ON DELETE SET NULL
+  
+		ON UPDATE CASCADE;
+
+
+INSERT INTO `adresar`.`sex` 
+	(`ID`, `NAME`) VALUES ('1', 'MALE');
+
+INSERT INTO `adresar`.`sex` 
+	(`ID`, `NAME`) VALUES ('2', 'FEMALE');
+
+INSERT INTO `adresar`.`country` 
+	(`ID`, `NAME`, `ALPHA_2`, `ALPHA_3`) VALUES ('1', 'United states of America', 'US', 'USA');
+INSERT INTO `adresar`.`country` 
+	(`ID`, `NAME`, `ALPHA_2`, `ALPHA_3`) VALUES ('2', 'United Kingdom', 'GB', 'GBR');
+
+INSERT INTO `adresar`.`country` 
+	(`ID`, `NAME`, `ALPHA_2`, `ALPHA_3`) VALUES ('3', 'Croatia', 'HR', 'HRV');
+
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('1', 'New york', '123435', '1');
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('2', 'Washington', '2341', '1');
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('3', 'London', '13451', '2');
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('4', 'Manchester city', '5421', '2');
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('5', 'Zagreb', '10000', '3');
+
+INSERT INTO `adresar`.`city` 
+	(`ID`, `NAME`, `ZIP_CODE`, `COUNTRY_ID`) VALUES ('6', 'Split', '31000', '3');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
