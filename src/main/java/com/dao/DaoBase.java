@@ -1,23 +1,17 @@
 package com.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Criteria;
+import org.springframework.stereotype.Repository;
 
+import com.google.gson.JsonObject;
 
-public interface DaoBase<PK extends Serializable, T> {
-	
-	public Criteria createEntityCriteria();
-	
-	List<T> findAll();
-	
-	public T getByKey(PK key);
-	
-	public void delete(T entity);
+public interface DaoBase {
 
-	void save(T entity);
+	
+	List<JsonObject> findAll();
 
-	void update(T entity);
+	void save(JsonObject gForm);
+
 
 }

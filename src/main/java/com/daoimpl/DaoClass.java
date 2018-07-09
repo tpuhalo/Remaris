@@ -1,29 +1,20 @@
 package com.daoimpl;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 
 import com.dao.DaoBase;
+import com.google.gson.JsonObject;
 
-public abstract class DaoClass<PK extends Serializable, T> implements DaoBase<PK, T> {
+@Repository
+public class DaoClass implements DaoBase {
 
-	private final Class<T> persistentClass;
-
-	public DaoClass(Class<T> entityClass) {
-		this.persistentClass = entityClass;
-	}
 	
-	@Override
-	public Criteria createEntityCriteria() {
-		return getSession().createCriteria(persistentClass);
-	}
-
 	@Autowired
 	@Qualifier("sessionFactory")
 	private SessionFactory sessionFactory;
@@ -34,32 +25,15 @@ public abstract class DaoClass<PK extends Serializable, T> implements DaoBase<PK
 	
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<T> findAll() {
-		List<T> objects = null;
-		objects = getSession().createQuery("from " + persistentClass.getName()).list();
+	public List<JsonObject> findAll() {
+		List<JsonObject> objects = null;
+		objects = getSession().createQuery("from content").list();
 		return objects;
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
-	public T getByKey(PK key) {
-		return (T) getSession().get(persistentClass, key);
-	}
-
-	@Override
-	public void save(T entity) {
+	public void save(JsonObject entity) {
 		getSession().save(entity);
 	}
-	
-	@Override
-	public void update(T entity) {
-		getSession().update(entity);
-	}
-
-	@Override
-	public void delete(T entity) {
-		getSession().delete(entity);
-	}
-
 
 }

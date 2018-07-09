@@ -19,11 +19,6 @@ table, th, td {
 	font-size: 20px;
 	border: 1px solid black;
 }
-
-cb {
-	font-size: 10px;
-	font-color: red
-}
 </style>
 </head>
 <body>

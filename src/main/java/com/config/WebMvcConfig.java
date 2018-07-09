@@ -12,7 +12,7 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
-@ComponentScan("com.zadatak")
+@ComponentScan("com")
 @EnableWebMvc
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
