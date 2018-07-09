@@ -1,5 +1,6 @@
 package com.daoimpl;
 
+import java.sql.Time;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -34,6 +35,17 @@ public class DaoClass implements DaoBase {
 	@Override
 	public void save(JsonObject entity) {
 		getSession().save(entity);
+	}
+
+	@Override
+	public void setSubmitTime(Time time) {
+		getSession().save(entity);
+	}
+
+	@Override
+	public boolean getSubmitTime() {
+
+		return false;
 	}
 
 }
