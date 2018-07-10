@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 
@@ -27,17 +28,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- * Service class for Spring framework.
- * Here we declaring bussines logic for application.
+ * Service class for Spring framework. Here we declaring bussines logic for
+ * application.
  * 
  * @author Tihomir Puhalo
  *
  */
 
-
 @Service
 @Transactional
-public class MainService{
+public class MainService {
 
 	private static final String fromMail = "noReply@app.com";
 
@@ -46,9 +46,9 @@ public class MainService{
 	private static final String toEmail = "tihomir.puhalo@gmail.com";
 
 	private static final String subject = "mailSubsctiption";
-	
+
 	private static final String userSender = "User";
-	
+
 	private static final String passSender = "userPassword";
 
 	String url = "http://jsonplaceholder.typicode.com/users";
@@ -57,14 +57,15 @@ public class MainService{
 	DaoBase daoBase;
 
 	/**
-	 * Class for checking inputed data.
-	 * If email of inputed data is already assigned some of online Json data,
-	 * then we are parsing that data to database, and sending mail with that json object.
+	 * Class for checking inputed data. If email of inputed data is already assigned
+	 * some of online Json data, then we are parsing that data to database, and
+	 * sending mail with that json object.
 	 * 
-	 * Otherwise we are saving inputed data in database, and sending mail with that data.
+	 * Otherwise we are saving inputed data in database, and sending mail with that
+	 * data.
 	 * 
 	 * @param form
-	 * @return error 
+	 * @return error
 	 * @throws IOException
 	 */
 	public String checkFormInputted(FormInputtedDomain form) throws IOException {
@@ -82,7 +83,6 @@ public class MainService{
 			sendMail(obj.toString());
 			error = "Online form was saved in database.";
 		}
-
 
 		return error;
 	}
@@ -113,25 +113,23 @@ public class MainService{
 		return gForm;
 	}
 
-	
 	public static void sendMail(String body) {
 		String host = "smtp.gmail.com";
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", host);
-        props.put("mail.smtp.port", "587");
+		Properties props = new Properties();
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", host);
+		props.put("mail.smtp.port", "587");
 
-        Session session = Session.getInstance(props,
-           new javax.mail.Authenticator() {
-              protected PasswordAuthentication getPasswordAuthentication() {
-                 return new PasswordAuthentication(userSender, passSender);
-         }
-           });
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(userSender, passSender);
+			}
+		});
 		mailOut(session, body);
-		
+
 	}
-	
+
 	public static void mailOut(Session session, String body) {
 		try {
 			MimeMessage msg = new MimeMessage(session);
@@ -156,5 +154,18 @@ public class MainService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public boolean getUpdatedTime() {
+		boolean check;
+		LocalDateTime currentTime = LocalDateTime.now();
+		String lastUpdated = daoBase.getSubmitTime();
+		if (currentTime.toString().equals(lastUpdated) && lastUpdated != null) {
+			check = true;
+		} else {
+			check = false;
+		}
+		return check;
+
 	}
 }

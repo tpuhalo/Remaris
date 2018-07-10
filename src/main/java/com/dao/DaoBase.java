@@ -1,6 +1,5 @@
 package com.dao;
 
-import java.sql.Time;
 import java.util.List;
 
 import com.google.gson.JsonObject;
@@ -12,9 +11,6 @@ import com.google.gson.JsonObject;
  * @author Tihomir Puhalo
  *
  */
-
-<<<<<<< HEAD
-=======
 public interface DaoBase {
 	
 	
@@ -23,7 +19,7 @@ public interface DaoBase {
 	 * 
 	 * @return List<JsonObject>
 	 */
->>>>>>> 8c1107e33d517694fb40d0be44950185394d6dfa
+	
 	List<JsonObject> findAll();
 
 	/**
@@ -34,9 +30,7 @@ public interface DaoBase {
 	 */
 	
 	void save(JsonObject gForm);
-
-	void setSubmitTime(Time time);
 	
-	boolean getSubmitTime();
+	String getSubmitTime();
 	
 }

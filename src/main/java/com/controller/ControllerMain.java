@@ -21,8 +21,7 @@ import com.service.MainService;
  * Main controller for Spring.
  * 
  * @author Tihomir Puhalo
- *  */
-
+ */
 
 @Controller
 public class ControllerMain {
@@ -31,52 +30,52 @@ public class ControllerMain {
 	private MainService mainService;
 
 	/**
-	 * Default class for fetching home page.
-	 * In model we adding FormInputtedDomain which is
-	 * default class for inputs.
+	 * Default class for fetching home page. In model we adding FormInputtedDomain
+	 * which is default class for inputs.
 	 * 
 	 * 
 	 * @param model
 	 * @return view name
 	 */
-	@RequestMapping(value = { "/" , "/home"}, method = RequestMethod.GET)
+	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String listUsers(ModelMap model) {
 		FormInputtedDomain form = new FormInputtedDomain();
 		model.addAttribute("formSubmitted", form);
 		return "home";
 	}
-	
-	
-/**
- * Class for handling POST request.
- * If result have errors we return it home,
- * if not we are handling inputed data.
- * 
- * 
- * @param form
- * @param result
- * @param model
- * @param request
- * @return views
- * @throws IOException
- */
-	@RequestMapping(value = "/saveForm", method = RequestMethod.POST)
-	public String saveAddress(@Valid @ModelAttribute("formSubmitted") FormInputtedDomain form, BindingResult result, Model model,
-			HttpServletRequest request) throws IOException {
 
+	/**
+	 * Class for handling POST request. If result have errors we return it home, if
+	 * not we are handling inputed data.
+	 * 
+	 * 
+	 * @param form
+	 * @param result
+	 * @param model
+	 * @param request
+	 * @return views
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/saveForm", method = RequestMethod.POST)
+	public String saveAddress(@Valid @ModelAttribute("formSubmitted") FormInputtedDomain form, BindingResult result,
+			Model model) throws IOException {
+
+		//boolean getUpdatedTime = mainService.getUpdatedTime();
+		String error;
+		
 		if (result.hasErrors()) {
+			error = "You have some errors.";
+			model.addAttribute("error", error);
 			return "home";
 		} else {
-			String error = mainService.checkFormInputted(form);
-			request.getSession().setAttribute("error", error);
+			error = mainService.checkFormInputted(form);
+			model.addAttribute("error", error);
 			return "redirect:/home";
 		}
 	}
-	
 
 	/**
-	 * If user type wrong URL we redirect 
-	 * him to home page.
+	 * If user type wrong URL we redirect him to home page.
 	 * 
 	 * @param request
 	 * @return

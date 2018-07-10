@@ -46,7 +46,7 @@ table, th, td {
 						<form:errors path="surname"></form:errors></td>
 				</tr>
 				<tr>
-					<td>Street number:</td>
+					<td>Email:</td>
 					<td><form:input path="email" placeholder="Enter email"></form:input>
 						<form:errors path="email"></form:errors></td>
 				</tr>
