@@ -31,7 +31,7 @@ public class MainService implements ServiceBase {
 
 		JsonElement onlineForm = getOnlineForm(form.getEmail());
 		JsonObject gForm = objectToJson(form);
-		if (onlineForm.isJsonNull()) {
+		if (onlineForm.toString().isEmpty()) {
 			daoBase.save(gForm);
 			error = "Your form was saved in database.";
 		} else {
