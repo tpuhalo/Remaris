@@ -11,6 +11,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
+/**
+ * Config class for Spring framework.
+ * 
+ * 
+ * @author Tihomir Puhalo
+ *
+ */
+
+
 @Configuration
 @ComponentScan("com")
 @EnableWebMvc

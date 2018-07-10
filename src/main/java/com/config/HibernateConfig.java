@@ -18,6 +18,20 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+/**
+ * 
+ *	Class for setting hibernate.
+ *	We are using MySql database, 
+ *	so properties is set to connect
+ *	to MySql database.
+ * 
+ * 
+ * @author Tihomir Puhalo
+ *
+ */
+
+
+
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({ "com" })

@@ -17,19 +17,49 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.domain.FormInputtedDomain;
 import com.service.MainService;
 
+/**
+ * Main controller for Spring.
+ * 
+ * @author Tihomir Puhalo
+ *  */
+
+
 @Controller
 public class ControllerMain {
 
 	@Autowired
 	private MainService mainService;
 
+	/**
+	 * Default class for fetching home page.
+	 * In model we adding FormInputtedDomain which is
+	 * default class for inputs.
+	 * 
+	 * 
+	 * @param model
+	 * @return view name
+	 */
 	@RequestMapping(value = { "/" , "/home"}, method = RequestMethod.GET)
 	public String listUsers(ModelMap model) {
 		FormInputtedDomain form = new FormInputtedDomain();
 		model.addAttribute("formSubmitted", form);
 		return "home";
 	}
-
+	
+	
+/**
+ * Class for handling POST request.
+ * If result have errors we return it home,
+ * if not we are handling inputed data.
+ * 
+ * 
+ * @param form
+ * @param result
+ * @param model
+ * @param request
+ * @return views
+ * @throws IOException
+ */
 	@RequestMapping(value = "/saveForm", method = RequestMethod.POST)
 	public String saveAddress(@Valid @ModelAttribute("formSubmitted") FormInputtedDomain form, BindingResult result, Model model,
 			HttpServletRequest request) throws IOException {
@@ -44,6 +74,13 @@ public class ControllerMain {
 	}
 	
 
+	/**
+	 * If user type wrong URL we redirect 
+	 * him to home page.
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String invalidURL(HttpServletRequest request) {
 		return "redirect:/";

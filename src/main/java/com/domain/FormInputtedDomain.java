@@ -5,6 +5,15 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
+/**
+ * Domain class for input data.
+ * We put annotation validation for each of element od data.
+ * 
+ * 
+ * @author Tihomir Puhalo
+ *
+ */
+
 public class FormInputtedDomain {
 
 	@Size(max = 20, message = "* Max 20 letters.")

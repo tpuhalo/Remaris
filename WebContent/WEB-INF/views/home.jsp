@@ -51,7 +51,7 @@ table, th, td {
 						<form:errors path="email"></form:errors></td>
 				</tr>
 				<tr>
-					<td align="center"><input type="submit" value="Submit"></td>
+					<td align="center"><input type="submit" value="Submit" ${condition ? 'disable = true' : 'disable = false' }></td>
 				</tr>
 			</table>
 		</form:form>
