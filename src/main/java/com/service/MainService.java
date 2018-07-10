@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Properties;
 
@@ -73,15 +72,14 @@ public class MainService {
 
 		JsonElement onlineForm = getOnlineForm(form.getEmail());
 		JsonObject gForm = objectToJson(form);
-		if (onlineForm.toString().isEmpty()) {
-			daoBase.save(gForm);
+		if (onlineForm.toString().equals("[]")) {
 			sendMail(gForm.toString());
-			error = "Your form was saved in database.";
+			daoBase.save(gForm.toString());
+			error = "Your form was saved in database." + gForm.toString();
 		} else {
-			JsonObject obj = onlineForm.getAsJsonObject();
-			daoBase.save(obj);
-			sendMail(obj.toString());
-			error = "Online form was saved in database.";
+			daoBase.save(onlineForm.toString());
+			sendMail(onlineForm.toString());
+			error = "Online form was saved in database." + onlineForm.toString();
 		}
 
 		return error;
@@ -108,8 +106,8 @@ public class MainService {
 	public JsonObject objectToJson(FormInputtedDomain object) {
 		JsonObject gForm = new JsonObject();
 		gForm.addProperty("name", object.getName());
-		gForm.addProperty("surname", object.getName());
-		gForm.addProperty("email", object.getName());
+		gForm.addProperty("surname", object.getSurname());
+		gForm.addProperty("email", object.getEmail());
 		return gForm;
 	}
 
@@ -155,17 +153,21 @@ public class MainService {
 			e.printStackTrace();
 		}
 	}
-
+/*
+ * to-do
+ * 
 	public boolean getUpdatedTime() {
 		boolean check;
 		LocalDateTime currentTime = LocalDateTime.now();
 		String lastUpdated = daoBase.getSubmitTime();
-		if (currentTime.toString().equals(lastUpdated) && lastUpdated != null) {
+		Duration dur = Duration.between(currentTime, lastUpdated);
+		
+		if (currentTime.getlastUpdated && lastUpdated != null) {
 			check = true;
 		} else {
 			check = false;
 		}
 		return check;
 
-	}
+	}*/
 }

@@ -9,12 +9,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.dao.DaoBase;
-import com.google.gson.JsonObject;
 
 @Repository
 public class DaoClass implements DaoBase {
 
-	String getTimeUpdated = "SELECT update_time FROM information_schema.tables WHERE TABLE_SCHEMA = 'rema' AND TABLE_NAME = 'content'";
+	String getTimeUpdated = "SELECT UPDATE_TIME FROM information_schema.tables WHERE TABLE_SCHEMA = 'rema' AND TABLE_NAME = 'content'";
 
 	@Autowired
 	@Qualifier("sessionFactory")
@@ -26,14 +25,14 @@ public class DaoClass implements DaoBase {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<JsonObject> findAll() {
-		List<JsonObject> objects = null;
+	public List<String> findAll() {
+		List<String> objects = null;
 		objects = getSession().createQuery("from content").list();
 		return objects;
 	}
 
 	@Override
-	public void save(JsonObject entity) {
+	public void save(String entity) {
 		getSession().save(entity);
 	}
 

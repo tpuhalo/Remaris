@@ -58,18 +58,20 @@ public class ControllerMain {
 	 */
 	@RequestMapping(value = "/saveForm", method = RequestMethod.POST)
 	public String saveAddress(@Valid @ModelAttribute("formSubmitted") FormInputtedDomain form, BindingResult result,
-			Model model) throws IOException {
-
-		//boolean getUpdatedTime = mainService.getUpdatedTime();
+			Model model, HttpServletRequest request) throws IOException {
+/**
+ * for checking when is last updated database and preventing to submit for 1h
+ */
+	//	boolean getUpdatedTime = mainService.getUpdatedTime();
 		String error;
-		
-		if (result.hasErrors()) {
+
+		if (result.hasErrors() ) {
 			error = "You have some errors.";
-			model.addAttribute("error", error);
+			request.getSession().setAttribute("error", error);
 			return "home";
 		} else {
 			error = mainService.checkFormInputted(form);
-			model.addAttribute("error", error);
+			request.getSession().setAttribute("error", error);
 			return "redirect:/home";
 		}
 	}

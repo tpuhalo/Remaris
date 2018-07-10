@@ -2,8 +2,6 @@ package com.dao;
 
 import java.util.List;
 
-import com.google.gson.JsonObject;
-
 /**
  * Interface for creating classes in DAO implementation.
  * 
@@ -17,19 +15,17 @@ public interface DaoBase {
 	/**
 	 * Class for fetching all data in database.
 	 * 
-	 * @return List<JsonObject>
+	 * @return List<String>
 	 */
 	
-	List<JsonObject> findAll();
+	List<String> findAll();
 
 	/**
-	 * Class for saving object in database.
-	 * Object must be type JsonObject.
-	 * 
-	 * @param JsonObject
+	 * Class for saving object in database. 
+	 * @param String
 	 */
 	
-	void save(JsonObject gForm);
+	void save(String gForm);
 	
 	String getSubmitTime();
 	
