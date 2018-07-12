@@ -10,23 +10,28 @@ import java.util.List;
  *
  */
 public interface DaoBase {
-	
-	
+
 	/**
 	 * Class for fetching all data in database.
 	 * 
 	 * @return List<String>
 	 */
-	
+
 	List<String> findAll();
 
 	/**
-	 * Class for saving object in database. 
+	 * Class for saving object in database.
+	 * 
 	 * @param String
 	 */
-	
+
 	void save(String gForm);
-	
+
+	/**
+	 * Class for getting last updated time for table where we store json.
+	 * 
+	 * @return String
+	 */
 	String getSubmitTime();
-	
+
 }

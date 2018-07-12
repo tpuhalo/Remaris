@@ -18,6 +18,8 @@ import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.domain.Content;
+
 /**
  * 
  *	Class for setting hibernate.
@@ -29,8 +31,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Tihomir Puhalo
  *
  */
-
-
 
 @Configuration
 @EnableTransactionManagement
@@ -44,6 +44,7 @@ public class HibernateConfig {
 	@Bean(name = { "sessionFactory" })
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+		sessionFactory.setAnnotatedClasses(Content.class);
 		sessionFactory.setDataSource(dataSource());
 		sessionFactory.setPackagesToScan(new String[] { "com" });
 		sessionFactory.setHibernateProperties(hibernateProperties());

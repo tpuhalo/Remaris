@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
 
@@ -153,21 +156,30 @@ public class MainService {
 			e.printStackTrace();
 		}
 	}
-/*
- * to-do
- * 
+
 	public boolean getUpdatedTime() {
-		boolean check;
+		boolean check = false;
 		LocalDateTime currentTime = LocalDateTime.now();
-		String lastUpdated = daoBase.getSubmitTime();
+		LocalDateTime lastUpdated = format(daoBase.getSubmitTime().toString().replaceAll(" ", "T"));
+
 		Duration dur = Duration.between(currentTime, lastUpdated);
-		
-		if (currentTime.getlastUpdated && lastUpdated != null) {
+		Duration oneHour = Duration.ofHours(1L);
+		if (dur.compareTo(oneHour) < 0) {
 			check = true;
 		} else {
 			check = false;
 		}
-		return check;
+		return false;
 
-	}*/
+	}
+
+	public String getBaseUpdatedTime() {
+		return daoBase.getSubmitTime().toString().replaceAll(" ", "T").toString();
+	}
+
+	public LocalDateTime format(String time) {
+		DateTimeFormatter format = DateTimeFormatter.ISO_DATE_TIME;
+		LocalDateTime formattedTime = LocalDateTime.parse(time, format);
+		return formattedTime;
+	}
 }
