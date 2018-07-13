@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import com.dao.DaoBase;
+import com.domain.Content;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
@@ -37,14 +38,14 @@ public class DaoClass implements DaoBase {
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<String> findAll() {
-		List<String> objects = null;
+	public List<Content> findAll() {
+		List<Content> objects = null;
 		objects = getSession().createQuery("from content").list();
 		return objects;
 	}
 
 	@Override
-	public void save(String entity) {
+	public void save(Content entity) {
 		getSession().save(entity);
 	}
 

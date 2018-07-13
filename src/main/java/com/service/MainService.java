@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Properties;
+import java.util.jar.Attributes.Name;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.dao.DaoBase;
+import com.domain.Content;
 import com.domain.FormInputtedDomain;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -75,12 +77,17 @@ public class MainService {
 
 		JsonElement onlineForm = getOnlineForm(form.getEmail());
 		JsonObject gForm = objectToJson(form);
+	
 		if (onlineForm.toString().equals("[]")) {
+			Content saveForm = new Content();
+			saveForm.setName(gForm.toString());
+			daoBase.save(saveForm);
 			sendMail(gForm.toString());
-			daoBase.save(gForm.toString());
 			error = "Your form was saved in database." + gForm.toString();
 		} else {
-			daoBase.save(onlineForm.toString());
+			Content saveOnlineForm = new Content();
+			saveOnlineForm.setName(onlineForm.toString());
+			daoBase.save(saveOnlineForm);
 			sendMail(onlineForm.toString());
 			error = "Online form was saved in database." + onlineForm.toString();
 		}
@@ -169,12 +176,18 @@ public class MainService {
 		} else {
 			check = false;
 		}
-		return false;
+		return check;
 
 	}
 
 	public String getBaseUpdatedTime() {
-		return daoBase.getSubmitTime().toString().replaceAll(" ", "T").toString();
+		String time ="";
+		try {
+			time=  daoBase.getSubmitTime().toString().replaceAll(" ", "T").toString();
+		} catch (NullPointerException ex) {
+			time= "Time is null.";
+		}
+		return time;
 	}
 
 	public LocalDateTime format(String time) {

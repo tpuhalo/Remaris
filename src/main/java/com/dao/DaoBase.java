@@ -2,6 +2,8 @@ package com.dao;
 
 import java.util.List;
 
+import com.domain.Content;
+
 /**
  * Interface for creating classes in DAO implementation.
  * 
@@ -17,7 +19,7 @@ public interface DaoBase {
 	 * @return List<String>
 	 */
 
-	List<String> findAll();
+	List<Content> findAll();
 
 	/**
 	 * Class for saving object in database.
@@ -25,7 +27,7 @@ public interface DaoBase {
 	 * @param String
 	 */
 
-	void save(String gForm);
+	void save(Content gForm);
 
 	/**
 	 * Class for getting last updated time for table where we store json.
